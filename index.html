@@ -125,6 +125,58 @@
             }
         }
     </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friendship</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+      padding: 50px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Friendship</h1>
+  <p>Real friends can sometimes do mistakes but real friends always learn to forgive. :) </p>
+  <p>Do you agree with this?</p>
+
+  <!-- YES and NO Buttons -->
+  <button id="yesButton" onclick="agreeYes()">YES</button>
+  <button id="noButton" onclick="agreeNo()">NO</button>
+
+  <!-- The script goes at the end of the body -->
+  <script>
+    // Function when YES is clicked
+    function agreeYes() {
+      window.location.href = "yeee.html";  // Redirect to a new page
+    }
+
+    // Function when NO is clicked
+    function agreeNo() {
+      // Change the NO button to YES and update its behavior
+      document.getElementById("noButton").textContent = "YES"; // Change text to YES
+      document.getElementById("noButton").setAttribute("onclick", "agreeYes()"); // Make it work like YES
+    }
+  </script>
+</body>
+</html>
 
 </body>
 </html>
