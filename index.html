@@ -84,6 +84,7 @@
 
     <div class="message" id="message"></div>
 
+    <!-- Friendship Page Section (Initially Hidden) -->
     <div class="friendship-page" id="friendshipPage">
         <h2>Friendship</h2>
         <p>Friendship is a bond between two or more people who share mutual affection, trust, and support. It is based on shared experiences, communication, and understanding. Friends are there to provide emotional support during tough times, celebrate good moments, and offer advice. A true friend is someone who respects, listens, and helps when needed.</p>
@@ -121,7 +122,7 @@
                 // Hide the name input and button, show the friendship page
                 document.querySelector("input").style.display = "none";
                 document.querySelector("button").style.display = "none";
-                friendshipPage.style.display = "block";
+                friendshipPage.style.display = "block"; // Show the friendship page
             } else {
                 message.innerHTML = "<p class='error'>You cannot enter this webpage. Only 'He' can.</p>";
                 // Optionally, you can redirect the user away from the page
