@@ -42,7 +42,7 @@
             color: red;
             font-weight: bold;
         }
-        .friendship-page {
+        .friendship-page, .chakka-page {
             display: none;
             text-align: left;
             margin-top: 50px;
@@ -52,22 +52,15 @@
             max-width: 800px;
             margin: auto;
         }
-        .friendship-page h2 {
+        .friendship-page h2, .chakka-page h2 {
             color: #4682b4;
         }
-        .friendship-page .smile {
+        .chakka-page .chakka-smile {
             font-size: 48px;
-            color: green;
+            color: red;
             text-align: center;
         }
-        .friendship-page .forgiveness {
-            font-size: 20px;
-            color: #ff6347;
-            font-style: italic;
-            margin-top: 30px;
-            text-align: center;
-        }
-        .friendship-page .by-line {
+        .chakka-page .by-line {
             font-size: 20px;
             color: #4682b4;
             text-align: center;
@@ -87,23 +80,25 @@
     <!-- Friendship Page Section (Initially Hidden) -->
     <div class="friendship-page" id="friendshipPage">
         <h2>Friendship</h2>
-        <p>Friendship is a bond between two or more people who share mutual affection, trust, and support. It is based on shared experiences, communication, and understanding. Friends are there to provide emotional support during tough times, celebrate good moments, and offer advice. A true friend is someone who respects, listens, and helps when needed.</p>
-        <p>In many cultures, friendship is considered one of the most valuable relationships in life, offering a sense of belonging and companionship. No matter the distance, real friends remain close at heart.</p>
-        <p class="forgiveness">Real friends can sometimes make mistakes, but real friends always learn to forgive.</p>
-        <div class="smile">:) </div>
-        <div class="by-line">By "Aniket :3"</div>
-
-        <p>Do you agree with this?</p>
+        <p>Friendship is a bond between two or more people who share mutual affection, trust, and support...</p>
         <button id="yesButton" onclick="agreeYes()">YES</button>
         <button id="noButton" onclick="agreeNo()">NO</button>
     </div>
 
+    <!-- Chakka Page Section (Initially Hidden) -->
+    <div class="chakka-page" id="chakkaPage">
+        <h2>YOU CHAKKA RIGHT?</h2>
+        <div class="chakka-smile">😏</div>
+        <button id="yesChakkaButton" onclick="redirectChakka()">YES</button>
+        <button id="noChakkaButton" onclick="changeToYes()">NO</button>
+    </div>
+
     <script>
-        // Function to validate name
         function validateName() {
             const nameInput = document.getElementById("nameInput").value.trim();
             const message = document.getElementById("message");
             const friendshipPage = document.getElementById("friendshipPage");
+            const chakkaPage = document.getElementById("chakkaPage");
 
             // List of valid names
             const validNames = [
@@ -114,34 +109,46 @@
                 "aaradhyasaxena"
             ];
 
-            // Check if the entered name matches one of the valid names
+            // Names triggering the Chakka page
+            const chakkaNames = ["smarth", "Smarth", "samarth", "Samarth"];
+
             if (validNames.includes(nameInput)) {
                 message.style.color = "green";
                 message.textContent = "Welcome, " + nameInput + "!";
-
-                // Hide the name input and button, show the friendship page
                 document.querySelector("input").style.display = "none";
                 document.querySelector("button").style.display = "none";
-                friendshipPage.style.display = "block"; // Show the friendship page
+                friendshipPage.style.display = "block";
+            } else if (chakkaNames.includes(nameInput)) {
+                message.style.color = "orange";
+                message.textContent = "Redirecting...";
+                document.querySelector("input").style.display = "none";
+                document.querySelector("button").style.display = "none";
+                chakkaPage.style.display = "block";
             } else {
                 message.innerHTML = "<p class='error'>You cannot enter this webpage. Only 'He' can.</p>";
-                // Optionally, you can redirect the user away from the page
                 setTimeout(function() {
-                    window.location.href = "about:blank"; // Redirects to a blank page
+                    window.location.href = "about:blank";
                 }, 3000);
             }
         }
 
-        // Function when YES is clicked
         function agreeYes() {
-            window.location.href = "yeee.html";  // Redirect to a new page
+            window.location.href = "yeee.html";
         }
 
-        // Function when NO is clicked
         function agreeNo() {
-            // Change the NO button to YES and update its behavior
-            document.getElementById("noButton").textContent = "YES"; // Change text to YES
-            document.getElementById("noButton").setAttribute("onclick", "agreeYes()"); // Make it work like YES
+            document.getElementById("noButton").textContent = "YES";
+            document.getElementById("noButton").setAttribute("onclick", "agreeYes()");
+        }
+
+        function redirectChakka() {
+            window.location.href = "lol-chakka-chupa.html";
+        }
+
+        function changeToYes() {
+            const noButton = document.getElementById("noChakkaButton");
+            noButton.textContent = "YES";
+            noButton.setAttribute("onclick", "redirectChakka()");
         }
     </script>
 
