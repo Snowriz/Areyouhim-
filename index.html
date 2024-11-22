@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Are you him?</title>
+    <title>YO CHAKKE</title> <!-- Home Page Title -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -71,7 +71,7 @@
 <body>
 
     <!-- Name Validation Section -->
-    <h1>Enter Your Name</h1>
+    <h1>YO CHAKKE</h1>
     <input type="text" id="nameInput" placeholder="Enter your name">
     <button onclick="validateName()">Submit</button>
 
@@ -80,7 +80,13 @@
     <!-- Friendship Page Section (Initially Hidden) -->
     <div class="friendship-page" id="friendshipPage">
         <h2>Friendship</h2>
-        <p>Friendship is a bond between two or more people who share mutual affection, trust, and support...</p>
+        <p>Friendship is a bond between two or more people who share mutual affection, trust, and support. It is based on shared experiences, communication, and understanding. Friends are there to provide emotional support during tough times, celebrate good moments, and offer advice. A true friend is someone who respects, listens, and helps when needed.</p>
+        <p>In many cultures, friendship is considered one of the most valuable relationships in life, offering a sense of belonging and companionship. No matter the distance, real friends remain close at heart.</p>
+        <p class="forgiveness">Real friends can sometimes make mistakes, but real friends always learn to forgive.</p>
+        <div class="smile">:) </div>
+        <div class="by-line">By "Aniket :3"</div>
+
+        <p>Do you agree with this?</p>
         <button id="yesButton" onclick="agreeYes()">YES</button>
         <button id="noButton" onclick="agreeNo()">NO</button>
     </div>
@@ -118,12 +124,14 @@
                 document.querySelector("input").style.display = "none";
                 document.querySelector("button").style.display = "none";
                 friendshipPage.style.display = "block";
+                document.title = "Friendship Page"; // Update title dynamically
             } else if (chakkaNames.includes(nameInput)) {
                 message.style.color = "orange";
                 message.textContent = "Redirecting...";
                 document.querySelector("input").style.display = "none";
                 document.querySelector("button").style.display = "none";
                 chakkaPage.style.display = "block";
+                document.title = "YOU CHAKKA RIGHT?"; // Update title dynamically for Chakka page
             } else {
                 message.innerHTML = "<p class='error'>You cannot enter this webpage. Only 'He' can.</p>";
                 setTimeout(function() {
@@ -133,7 +141,7 @@
         }
 
         function agreeYes() {
-            window.location.href = "yeee.html";
+            window.location.href = "yeee.html";  // Redirect to a new page
         }
 
         function agreeNo() {
@@ -142,7 +150,7 @@
         }
 
         function redirectChakka() {
-            window.location.href = "lol-chakka-chupa.html";
+            window.location.href = "lol-chakka-chupa.html";  // Redirect to the Chakka page
         }
 
         function changeToYes() {
