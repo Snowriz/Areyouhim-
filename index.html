@@ -71,7 +71,7 @@
 <body>
 
     <!-- Name Validation Section -->
-    <h1>YO CHAKKE</h1>
+    <h1>ENTER YOUR NAME</h1>
     <input type="text" id="nameInput" placeholder="Enter your name">
     <button onclick="validateName()">Submit</button>
 
@@ -106,6 +106,7 @@
             const message = document.getElementById("message");
             const friendshipPage = document.getElementById("friendshipPage");
             const chakkaPage = document.getElementById("chakkaPage");
+            const heading = document.querySelector("h1"); // Get the heading element
 
             // List of valid names for Friendship Page
             const validNames = [
@@ -118,6 +119,9 @@
 
             // List of names that trigger the Chakka page
             const chakkaNames = ["smarth", "Smarth", "samarth", "Samarth"];
+
+            // Hide the initial heading when a page opens
+            heading.style.display = "none"; 
 
             if (validNames.includes(nameInput)) {
                 message.style.color = "green";
