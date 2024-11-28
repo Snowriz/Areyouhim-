@@ -126,7 +126,14 @@
         function calculateResult() {
             try {
                 let expression = document.getElementById("display").value;
-                let result = eval(expression);  // Evaluate the expression (for simple arithmetic)
+                
+                // Check for percentage symbol and convert to a fraction
+                if (expression.includes('%')) {
+                    expression = expression.replace(/(\d+)%/g, "($1/100)");  // Convert percentage to fraction
+                }
+                
+                // Evaluate the expression
+                let result = eval(expression);  // Simple eval for arithmetic calculations
                 document.getElementById("display").value = result;
             } catch (error) {
                 document.getElementById("display").value = "Error";
@@ -136,3 +143,4 @@
 
 </body>
 </html>
+
