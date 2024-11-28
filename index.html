@@ -55,6 +55,14 @@
         .friendship-page h2, .chakka-page h2, .nugheaven-page h2 {
             color: #4682b4;
         }
+        /* "Made by Aniket" at bottom left */
+        .made-by {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 14px;
+            color: #808080;
+        }
     </style>
 </head>
 <body>
@@ -69,7 +77,7 @@
     <!-- Friendship Page Section (Initially Hidden) -->
     <div class="friendship-page" id="friendshipPage">
         <h2>Friendship</h2>
-        <p>Friendship is a bond between two or more people who share mutual affection, trust, and support...</p>
+        <p>Friendship is a bond between two or more people who share mutual affection, trust, and support.</p>
         <p>Do you agree with this?</p>
         <button id="yesButton" onclick="agreeYes()">YES</button>
         <button id="noButton" onclick="agreeNo()">NO</button>
@@ -89,6 +97,9 @@
         <p>This is a special page just for you, Nugheaven!</p>
         <button onclick="redirectToCalculator()">Go to Calculator</button>
     </div>
+
+    <!-- Footer with Made by Aniket text -->
+    <div class="made-by">Made by Aniket</div>
 
     <script>
         // Function to validate name
@@ -180,3 +191,4 @@
 
 </body>
 </html>
+
