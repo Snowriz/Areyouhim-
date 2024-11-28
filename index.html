@@ -1,62 +1,139 @@
-function validateName() {
-    const nameInput = document.getElementById("nameInput").value.trim();
-    const message = document.getElementById("message");
-    const friendshipPage = document.getElementById("friendshipPage");
-    const chakkaPage = document.getElementById("chakkaPage");
-    const heading = document.querySelector("h1"); // Get the heading element
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Your Name</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #ff6347;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #4682b4;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4682b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #5f9ea0;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ff6347;
+        }
+        .error {
+            font-size: 20px;
+            color: red;
+            font-weight: bold;
+        }
+        .friendship-page, .chakka-page {
+            display: none;
+            text-align: left;
+            margin-top: 50px;
+            background-color: #fff8dc;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .friendship-page h2,
+        .chakka-page h2 {
+            color: #4682b4;
+        }
+    </style>
+</head>
+<body>
 
-    // List of valid names for Friendship Page
-    const validNames = [
-        "Aaradhya", 
-        "Aaradhya saxena", 
-        "aaradhya", 
-        "Aaradhyasaxena", 
-        "aaradhyasaxena"
-    ];
+    <!-- Name Validation Section -->
+    <h1>ENTER YOUR NAME</h1>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button onclick="validateName()">Submit</button>
 
-    // List of names that trigger the Chakka page
-    const chakkaNames = ["smarth", "Smarth", "samarth", "Samarth"];
+    <div class="message" id="message"></div>
 
-    // List of names that trigger Nug Heaven calculator page
-    const nugheavenNames = [
-        "Nugheaven", 
-        "Nug heaven", 
-        "NUG HEAVEN", 
-        "nugheaven", 
-        "NUGHEAVEN", 
-        "Nug master", 
-        "Nug Master", 
-        "nug master", 
-        "NUG MASTER"
-    ];
+    <!-- Friendship Page Section -->
+    <div class="friendship-page" id="friendshipPage">
+        <h2>Friendship</h2>
+        <p>Friendship is a bond between two or more people who share mutual affection, trust, and support. It is based on shared experiences, communication, and understanding. Friends are there to provide emotional support during tough times, celebrate good moments, and offer advice. A true friend is someone who respects, listens, and helps when needed.</p>
+        <p>In many cultures, friendship is considered one of the most valuable relationships in life, offering a sense of belonging and companionship. No matter the distance, real friends remain close at heart.</p>
+        <p>Real friends can sometimes make mistakes, but they always learn to forgive and grow stronger together.</p>
+        <div class="smile">😊</div>
+        <div class="by-line">By "Aniket :3"</div>
+        <p>Do you agree with this?</p>
+        <button onclick="agreeYes()">YES</button>
+        <button onclick="agreeNo()">NO</button>
+    </div>
 
-    // Hide the initial heading when a page opens
-    heading.style.display = "none"; 
+    <!-- Chakka Page Section -->
+    <div class="chakka-page" id="chakkaPage">
+        <h2>YOU CHAKKA RIGHT?</h2>
+        <button onclick="redirectChakka()">YES</button>
+        <button onclick="changeToYes()">NO</button>
+    </div>
 
-    if (validNames.includes(nameInput)) {
-        message.style.color = "green";
-        message.textContent = "Welcome, " + nameInput + "!";
-        document.querySelector("input").style.display = "none";
-        document.querySelector("button").style.display = "none";
-        friendshipPage.style.display = "block"; // Show the friendship page
-        document.title = "Friendship Page"; // Update title for the friendship page
-    } else if (chakkaNames.includes(nameInput)) {
-        message.style.color = "orange";
-        message.textContent = "Redirecting to Chakka Page...";
-        document.querySelector("input").style.display = "none";
-        document.querySelector("button").style.display = "none";
-        chakkaPage.style.display = "block"; // Show the Chakka page
-        document.title = "YOU CHAKKA RIGHT?"; // Update title for the Chakka page
-    } else if (nugheavenNames.includes(nameInput)) {
-        message.style.color = "blue";
-        message.textContent = "Redirecting to Nug Heaven...";
-        setTimeout(function() {
-            window.location.href = "nugheaven.html"; // Redirect to Nug Heaven page
-        }, 1500);
-    } else {
-        message.innerHTML = "<p class='error'>You cannot enter this webpage. Only 'He' can.</p>";
-        setTimeout(function() {
-            window.location.href = "about:blank"; // Redirects to a blank page
-        }, 3000);
-    }
-}
+    <script>
+        function validateName() {
+            const nameInput = document.getElementById("nameInput").value.trim();
+            const message = document.getElementById("message");
+            const friendshipPage = document.getElementById("friendshipPage");
+            const chakkaPage = document.getElementById("chakkaPage");
+
+            // Valid names for friendship page
+            const validNames = ["Aaradhya", "aaradhya", "Aaradhyasaxena", "aaradhyasaxena"];
+            
+            // Names for Chakka page
+            const chakkaNames = ["smarth", "Smarth", "samarth", "Samarth"];
+            
+            // Names for calculator page
+            const nugNames = ["Nug master", "nug master", "Nugheaven", "nugheaven", "NUG MASTER"];
+
+            if (validNames.includes(nameInput)) {
+                message.textContent = "Welcome, " + nameInput + "!";
+                friendshipPage.style.display = "block";
+            } else if (chakkaNames.includes(nameInput)) {
+                message.textContent = "Redirecting to Chakka Page...";
+                chakkaPage.style.display = "block";
+            } else if (nugNames.includes(nameInput)) {
+                message.textContent = "Redirecting to Calculator Page...";
+                setTimeout(function() {
+                    window.location.href = "calculator.html";
+                }, 1500);
+            } else {
+                message.innerHTML = "<p class='error'>You cannot enter this webpage.</p>";
+            }
+        }
+
+        function agreeYes() {
+            alert("You agreed!");
+        }
+
+        function agreeNo() {
+            alert("You disagreed!");
+        }
+
+        function redirectChakka() {
+            alert("Redirecting to Chakka-specific page...");
+        }
+
+        function changeToYes() {
+            alert("NO was changed to YES.");
+        }
+    </script>
+</body>
+</html>
