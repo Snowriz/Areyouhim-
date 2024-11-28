@@ -7,164 +7,132 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f0f8ff;
-            padding: 50px;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        h1 {
-            color: #4682b4;
-        }
+
         .calculator {
-            display: inline-block;
             background-color: #ffffff;
-            padding: 30px;
             border-radius: 10px;
+            padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            font-size: 16px;
-            margin: 10px 0;
-            border: 2px solid #4682b4;
+
+        .display {
+            font-size: 32px;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            width: 100%;
+            text-align: right;
             border-radius: 5px;
         }
-        button {
-            padding: 10px 20px;
-            margin: 5px;
-            font-size: 16px;
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 20px;
+            font-size: 20px;
             background-color: #4682b4;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
-        button:hover {
+
+        .button:hover {
             background-color: #5f9ea0;
         }
-        .history {
-            margin-top: 20px;
-            background-color: #e6f7ff;
-            padding: 10px;
-            border-radius: 5px;
-            max-width: 80%;
-            text-align: left;
-            margin: 0 auto;
+
+        .button:active {
+            background-color: #4169e1;
         }
-        .history h3 {
-            color: #4682b4;
+
+        .clear {
+            background-color: #e74c3c;
         }
-        .history ul {
-            list-style-type: none;
-            padding: 0;
+
+        .clear:hover {
+            background-color: #c0392b;
         }
-        .history ul li {
-            margin: 5px 0;
-            font-size: 14px;
-            color: #333;
+
+        .equal {
+            background-color: #2ecc71;
         }
-        .error {
-            color: red;
-            font-weight: bold;
+
+        .equal:hover {
+            background-color: #27ae60;
+        }
+
+        .operator {
+            background-color: #f39c12;
+        }
+
+        .operator:hover {
+            background-color: #e67e22;
         }
     </style>
 </head>
 <body>
-    <h1>Simple Calculator</h1>
-    <div class="calculator">
-        <input type="text" id="num1" placeholder="Enter first number">
-        <input type="text" id="num2" placeholder="Enter second number">
-        <div>
-            <button onclick="performCalculation('add')">+</button>
-            <button onclick="performCalculation('subtract')">-</button>
-            <button onclick="performCalculation('multiply')">*</button>
-            <button onclick="performCalculation('divide')">/</button>
-        </div>
-        <h2 id="result">Result: </h2>
-        <p id="errorMessage" class="error"></p>
-    </div>
 
-    <div class="history" id="history">
-        <h3>Calculation History</h3>
-        <ul id="historyList"></ul>
+    <div class="calculator">
+        <input type="text" class="display" id="display" disabled>
+
+        <div class="buttons">
+            <button class="button clear" onclick="clearDisplay()">C</button>
+            <button class="button operator" onclick="appendToDisplay('/')">/</button>
+            <button class="button operator" onclick="appendToDisplay('*')">*</button>
+            <button class="button operator" onclick="appendToDisplay('-')">-</button>
+
+            <button class="button" onclick="appendToDisplay('7')">7</button>
+            <button class="button" onclick="appendToDisplay('8')">8</button>
+            <button class="button" onclick="appendToDisplay('9')">9</button>
+            <button class="button operator" onclick="appendToDisplay('+')">+</button>
+
+            <button class="button" onclick="appendToDisplay('4')">4</button>
+            <button class="button" onclick="appendToDisplay('5')">5</button>
+            <button class="button" onclick="appendToDisplay('6')">6</button>
+            <button class="button equal" onclick="calculateResult()">=</button>
+
+            <button class="button" onclick="appendToDisplay('1')">1</button>
+            <button class="button" onclick="appendToDisplay('2')">2</button>
+            <button class="button" onclick="appendToDisplay('3')">3</button>
+            <button class="button" onclick="appendToDisplay('0')">0</button>
+
+            <button class="button" onclick="appendToDisplay('.')">.</button>
+            <button class="button" onclick="appendToDisplay('%')">%</button>
+        </div>
     </div>
 
     <script>
-        let calculationHistory = [];
-
-        function performCalculation(operation) {
-            const num1 = parseFloat(document.getElementById('num1').value);
-            const num2 = parseFloat(document.getElementById('num2').value);
-            let result = '';
-            let errorMessage = '';
-
-            if (isNaN(num1) || isNaN(num2)) {
-                errorMessage = "Please enter valid numbers!";
-                document.getElementById('errorMessage').textContent = errorMessage;
-                document.getElementById('result').textContent = "Result: ";
-                return;
-            }
-
-            switch (operation) {
-                case 'add':
-                    result = num1 + num2;
-                    break;
-                case 'subtract':
-                    result = num1 - num2;
-                    break;
-                case 'multiply':
-                    result = num1 * num2;
-                    break;
-                case 'divide':
-                    if (num2 === 0) {
-                        errorMessage = "Cannot divide by zero!";
-                        result = '';
-                    } else {
-                        result = num1 / num2;
-                    }
-                    break;
-                default:
-                    errorMessage = "Invalid operation.";
-                    break;
-            }
-
-            // Display result
-            document.getElementById('result').textContent = "Result: " + result;
-            document.getElementById('errorMessage').textContent = errorMessage;
-
-            // If result is valid, add it to history
-            if (result !== '') {
-                addToHistory(`${num1} ${operationSymbol(operation)} ${num2} = ${result}`);
-            }
+        function clearDisplay() {
+            document.getElementById("display").value = "";
         }
 
-        function operationSymbol(operation) {
-            switch (operation) {
-                case 'add': return '+';
-                case 'subtract': return '-';
-                case 'multiply': return '*';
-                case 'divide': return '/';
-                default: return '';
-            }
+        function appendToDisplay(value) {
+            document.getElementById("display").value += value;
         }
 
-        function addToHistory(calculation) {
-            calculationHistory.push(calculation);
-            if (calculationHistory.length > 5) {
-                calculationHistory.shift(); // Keep only last 5 calculations
+        function calculateResult() {
+            try {
+                let expression = document.getElementById("display").value;
+                let result = eval(expression);  // Evaluate the expression (for simple arithmetic)
+                document.getElementById("display").value = result;
+            } catch (error) {
+                document.getElementById("display").value = "Error";
             }
-            updateHistory();
-        }
-
-        function updateHistory() {
-            const historyList = document.getElementById('historyList');
-            historyList.innerHTML = ''; // Clear current history
-            calculationHistory.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                historyList.appendChild(li);
-            });
         }
     </script>
+
 </body>
 </html>
