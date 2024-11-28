@@ -120,6 +120,9 @@
             // List of names for Nugheaven page
             const nugheavenNames = ["nugheaven", "nug heaven"];
 
+            // List of names for Numbergame page
+            const numberGameNames = ["numbergame"];
+
             // Hide the initial heading when a page opens
             heading.style.display = "none"; 
 
@@ -146,6 +149,11 @@
                 message.textContent = "Welcome to Nugheaven!";
                 nugheavenPage.style.display = "block"; // Show Nugheaven page
                 document.title = "Nugheaven Page"; // Update title for Nugheaven page
+            } else if (numberGameNames.includes(nameInput)) {
+                message.style.color = "purple";
+                message.textContent = "Welcome to the Guess the Number Game!";
+                // Redirect to the numbergame.html page
+                window.location.href = "numbergame.html"; // Open the number game page
             } else {
                 message.innerHTML = "<p class='error'>You cannot enter this webpage. Only 'He' can.</p>";
                 setTimeout(function() {
