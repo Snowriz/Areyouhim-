@@ -80,7 +80,7 @@
         <p>Friendship is a bond between two or more people who share mutual affection, trust, and support.</p>
         <p>Do you agree with this?</p>
         <button id="yesButton" onclick="agreeYes()">YES</button>
-        <button id="noButton" onclick="agreeNo()">NO</button>
+        <button id="noButton" onclick="changeToYes()">NO</button>
     </div>
 
     <!-- Chakka Page Section (Initially Hidden) -->
@@ -88,7 +88,7 @@
         <h2>YOU CHAKKA RIGHT?</h2>
         <div>😏</div>
         <button id="yesChakkaButton" onclick="redirectChakka()">YES</button>
-        <button id="noChakkaButton" onclick="changeToYes()">NO</button>
+        <button id="noChakkaButton" onclick="changeToYesChakka()">NO</button>
     </div>
 
     <!-- Nugheaven Page Section (Initially Hidden) -->
@@ -159,11 +159,13 @@
             window.location.href = "yeee.html";  // Redirect to a new page
         }
 
-        // Function when NO is clicked on the Friendship page
-        function agreeNo() {
+        // Function when NO is clicked on the Friendship page, changing to YES
+        function changeToYes() {
             const noButton = document.getElementById("noButton");
             noButton.textContent = "YES";
-            noButton.style.backgroundColor = "red";
+            noButton.style.backgroundColor = "green";
+            // Now the NO button behaves like YES
+            noButton.setAttribute("onclick", "agreeYes()");
         }
 
         // Function when YES is clicked on the Chakka page
@@ -171,11 +173,13 @@
             window.location.href = "https://en.wikipedia.org/wiki/Chakra";
         }
 
-        // Function when NO is clicked on the Chakka page
-        function changeToYes() {
+        // Function when NO is clicked on the Chakka page, changing to YES
+        function changeToYesChakka() {
             const noButton = document.getElementById("noChakkaButton");
             noButton.textContent = "YES";
             noButton.style.backgroundColor = "green";
+            // Now the NO button behaves like YES
+            noButton.setAttribute("onclick", "redirectChakka()");
         }
 
         // Redirect to Nugheaven calculator page
