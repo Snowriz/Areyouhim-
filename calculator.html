@@ -13,6 +13,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            position: relative;
         }
 
         .calculator {
@@ -81,6 +82,17 @@
         .operator:hover {
             background-color: #e67e22;
         }
+
+        .made-by {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -112,6 +124,10 @@
             <button class="button" onclick="appendToDisplay('.')">.</button>
             <button class="button" onclick="appendToDisplay('%')">%</button>
         </div>
+    </div>
+
+    <div class="made-by">
+        Made by Aniket
     </div>
 
     <script>
