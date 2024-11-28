@@ -42,7 +42,7 @@
             color: red;
             font-weight: bold;
         }
-        .friendship-page, .chakka-page {
+        .friendship-page, .chakka-page, .nugheaven-page {
             display: none;
             text-align: left;
             margin-top: 50px;
@@ -52,7 +52,7 @@
             max-width: 800px;
             margin: auto;
         }
-        .friendship-page h2, .chakka-page h2 {
+        .friendship-page h2, .chakka-page h2, .nugheaven-page h2 {
             color: #4682b4;
         }
         .chakka-page .chakka-smile {
@@ -98,6 +98,13 @@
         <button id="noChakkaButton" onclick="changeToYes()">NO</button>
     </div>
 
+    <!-- Nugheaven Page Section (Initially Hidden) -->
+    <div class="nugheaven-page" id="nugheavenPage">
+        <h2>Welcome to Nugheaven!</h2>
+        <p>This is a special page just for you, Nugheaven!</p>
+        <button onclick="redirectToCalculator()">Go to Calculator</button>
+    </div>
+
     <script>
         // Function to validate name
         function validateName() {
@@ -105,6 +112,7 @@
             const message = document.getElementById("message");
             const friendshipPage = document.getElementById("friendshipPage");
             const chakkaPage = document.getElementById("chakkaPage");
+            const nugheavenPage = document.getElementById("nugheavenPage");
             const heading = document.querySelector("h1");
 
             // List of valid names for Friendship Page
@@ -118,6 +126,9 @@
 
             // List of names that trigger the Chakka page
             const chakkaNames = ["smarth", "Smarth", "samarth", "Samarth"];
+
+            // List of names for Nugheaven page
+            const nugheavenNames = ["Nugheaven", "Nug heaven", "nugheaven", "NUG HEAVEN", "NUGHEAVEN"];
 
             // Hide the initial heading when a page opens
             heading.style.display = "none"; 
@@ -136,10 +147,17 @@
                 document.querySelector("button").style.display = "none";
                 chakkaPage.style.display = "block"; // Show the Chakka page
                 document.title = "YOU CHAKKA RIGHT?"; // Update title for the Chakka page
+            } else if (nugheavenNames.includes(nameInput)) {
+                message.style.color = "blue";
+                message.textContent = "Welcome to Nugheaven!";
+                document.querySelector("input").style.display = "none";
+                document.querySelector("button").style.display = "none";
+                nugheavenPage.style.display = "block"; // Show Nugheaven page
+                document.title = "Nugheaven Page"; // Update title for Nugheaven page
             } else {
                 message.innerHTML = "<p class='error'>You cannot enter this webpage. Only 'He' can.</p>";
                 setTimeout(function() {
-                    window.location.href = "about:blank"; // Redirect to a blank page
+                    window.location.href = "about:blank"; // Redirects to a blank page
                 }, 3000);
             }
         }
@@ -151,7 +169,6 @@
 
         // Function when NO is clicked on the Friendship page
         function agreeNo() {
-            // Prevent default behavior (if any)
             const noButton = document.getElementById("noButton");
             noButton.textContent = "YES";
             noButton.setAttribute("onclick", "agreeYes()");
@@ -168,6 +185,11 @@
             const noButton = document.getElementById("noChakkaButton");
             noButton.textContent = "YES";
             noButton.setAttribute("onclick", "redirectChakka()"); // Make it behave like YES
+        }
+
+        // Function to redirect to the calculator page
+        function redirectToCalculator() {
+            window.location.href = "calculator.html";  // Redirect to the calculator page
         }
     </script>
 
