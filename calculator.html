@@ -3,104 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nug Heaven Calculator</title>
+    <title>Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #fdf5e6;
             text-align: center;
+            background-color: #f0f8ff;
             padding: 50px;
         }
         h1 {
             color: #4682b4;
         }
         .calculator {
-            margin-top: 20px;
             display: inline-block;
-            background-color: #fff8dc;
-            padding: 20px;
+            background-color: #ffffff;
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .calculator input {
-            width: 100px;
+        input[type="text"] {
+            width: 80%;
             padding: 10px;
-            font-size: 18px;
-            margin: 5px;
-            border: 1px solid #ccc;
+            font-size: 16px;
+            margin: 10px 0;
+            border: 2px solid #4682b4;
             border-radius: 5px;
         }
-        .calculator button {
+        button {
             padding: 10px 20px;
+            margin: 5px;
             font-size: 16px;
             background-color: #4682b4;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin: 5px;
         }
-        .calculator button:hover {
+        button:hover {
             background-color: #5f9ea0;
         }
-        .result {
+        .history {
             margin-top: 20px;
-            font-size: 20px;
+            background-color: #e6f7ff;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 80%;
+            text-align: left;
+            margin: 0 auto;
+        }
+        .history h3 {
             color: #4682b4;
+        }
+        .history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .history ul li {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to Nug Heaven's Calculator</h1>
-    <p>Perform simple arithmetic operations here!</p>
+    <h1>Simple Calculator</h1>
     <div class="calculator">
-        <input type="number" id="num1" placeholder="Enter first number">
-        <input type="number" id="num2" placeholder="Enter second number">
-        <br>
-        <button onclick="calculate('+')">Add</button>
-        <button onclick="calculate('-')">Subtract</button>
-        <button onclick="calculate('*')">Multiply</button>
-        <button onclick="calculate('/')">Divide</button>
-        <div class="result" id="result"></div>
+        <input type="text" id="num1" placeholder="Enter first number">
+        <input type="text" id="num2" placeholder="Enter second number">
+        <div>
+            <button onclick="performCalculation('add')">+</button>
+            <button onclick="performCalculation('subtract')">-</button>
+            <button onclick="performCalculation('multiply')">*</button>
+            <button onclick="performCalculation('divide')">/</button>
+        </div>
+        <h2 id="result">Result: </h2>
+        <p id="errorMessage" class="error"></p>
+    </div>
+
+    <div class="history" id="history">
+        <h3>Calculation History</h3>
+        <ul id="historyList"></ul>
     </div>
 
     <script>
-        function calculate(operation) {
+        let calculationHistory = [];
+
+        function performCalculation(operation) {
             const num1 = parseFloat(document.getElementById('num1').value);
             const num2 = parseFloat(document.getElementById('num2').value);
-            const resultElement = document.getElementById('result');
-            
+            let result = '';
+            let errorMessage = '';
+
             if (isNaN(num1) || isNaN(num2)) {
-                resultElement.textContent = "Please enter valid numbers!";
-                resultElement.style.color = "red";
+                errorMessage = "Please enter valid numbers!";
+                document.getElementById('errorMessage').textContent = errorMessage;
+                document.getElementById('result').textContent = "Result: ";
                 return;
             }
-            
-            let result;
+
             switch (operation) {
-                case '+':
+                case 'add':
                     result = num1 + num2;
                     break;
-                case '-':
+                case 'subtract':
                     result = num1 - num2;
                     break;
-                case '*':
+                case 'multiply':
                     result = num1 * num2;
                     break;
-                case '/':
+                case 'divide':
                     if (num2 === 0) {
-                        resultElement.textContent = "Cannot divide by zero!";
-                        resultElement.style.color = "red";
-                        return;
+                        errorMessage = "Cannot divide by zero!";
+                        result = '';
+                    } else {
+                        result = num1 / num2;
                     }
-                    result = num1 / num2;
                     break;
                 default:
-                    result = "Invalid operation";
+                    errorMessage = "Invalid operation.";
+                    break;
             }
-            
-            resultElement.textContent = "Result: " + result;
-            resultElement.style.color = "#4682b4";
+
+            // Display result
+            document.getElementById('result').textContent = "Result: " + result;
+            document.getElementById('errorMessage').textContent = errorMessage;
+
+            // If result is valid, add it to history
+            if (result !== '') {
+                addToHistory(`${num1} ${operationSymbol(operation)} ${num2} = ${result}`);
+            }
+        }
+
+        function operationSymbol(operation) {
+            switch (operation) {
+                case 'add': return '+';
+                case 'subtract': return '-';
+                case 'multiply': return '*';
+                case 'divide': return '/';
+                default: return '';
+            }
+        }
+
+        function addToHistory(calculation) {
+            calculationHistory.push(calculation);
+            if (calculationHistory.length > 5) {
+                calculationHistory.shift(); // Keep only last 5 calculations
+            }
+            updateHistory();
+        }
+
+        function updateHistory() {
+            const historyList = document.getElementById('historyList');
+            historyList.innerHTML = ''; // Clear current history
+            calculationHistory.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                historyList.appendChild(li);
+            });
         }
     </script>
 </body>
