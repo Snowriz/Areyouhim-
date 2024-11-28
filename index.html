@@ -42,7 +42,7 @@
             color: red;
             font-weight: bold;
         }
-        .friendship-page, .chakka-page, .nugheaven-page {
+        .friendship-page, .chakka-page, .nugheaven-page, .numbergame-page {
             display: none;
             text-align: left;
             margin-top: 50px;
@@ -52,7 +52,7 @@
             max-width: 800px;
             margin: auto;
         }
-        .friendship-page h2, .chakka-page h2, .nugheaven-page h2 {
+        .friendship-page h2, .chakka-page h2, .nugheaven-page h2, .numbergame-page h2 {
             color: #4682b4;
         }
         /* "Made by Aniket" at bottom left */
@@ -98,6 +98,15 @@
         <button onclick="redirectToCalculator()">Go to Calculator</button>
     </div>
 
+    <!-- Numbergame Page Section (Initially Hidden) -->
+    <div class="numbergame-page" id="numberGamePage">
+        <h2>Guess the Number Game</h2>
+        <p>Try to guess the number between 1 and 100!</p>
+        <input type="number" id="guessInput" placeholder="Enter a number" min="1" max="100">
+        <button onclick="checkGuess()">Guess</button>
+        <div id="gameMessage"></div>
+    </div>
+
     <!-- Footer with Made by Aniket text -->
     <div class="made-by">Made by Aniket</div>
 
@@ -109,6 +118,7 @@
             const friendshipPage = document.getElementById("friendshipPage");
             const chakkaPage = document.getElementById("chakkaPage");
             const nugheavenPage = document.getElementById("nugheavenPage");
+            const numberGamePage = document.getElementById("numberGamePage");
             const heading = document.querySelector("h1");
 
             // List of valid names for Friendship Page
@@ -125,6 +135,9 @@
             const nugheavenNames = [
                 "nugheaven", "nug heaven", "nugheaven", "nug heaven", "nugheaven"
             ];
+
+            // List of names for Numbergame page
+            const numberGameNames = ["numbergame"];
 
             // Hide the initial heading when a page opens
             heading.style.display = "none"; 
@@ -150,11 +163,44 @@
                 document.querySelector("button").style.display = "none";
                 nugheavenPage.style.display = "block"; // Show Nugheaven page
                 document.title = "Nugheaven Page"; // Update title for Nugheaven page
+            } else if (numberGameNames.includes(nameInput)) {
+                message.style.color = "purple";
+                message.textContent = "Welcome to the Guess the Number Game!";
+                document.querySelector("input").style.display = "none";
+                document.querySelector("button").style.display = "none";
+                numberGamePage.style.display = "block"; // Show the numbergame page
+                document.title = "Guess the Number Game"; // Update title for the numbergame page
+                startNumberGame(); // Initialize the number guessing game
             } else {
                 message.innerHTML = "<p class='error'>You cannot enter this webpage. Only 'He' can.</p>";
                 setTimeout(function() {
                     window.location.href = "about:blank"; // Redirects to a blank page
                 }, 3000);
+            }
+        }
+
+        // Number Guessing Game Logic
+        let secretNumber;
+
+        // Initialize the game
+        function startNumberGame() {
+            secretNumber = Math.floor(Math.random() * 100) + 1;
+        }
+
+        // Check the player's guess
+        function checkGuess() {
+            const guessInput = document.getElementById("guessInput").value;
+            const gameMessage = document.getElementById("gameMessage");
+
+            if (guessInput == secretNumber) {
+                gameMessage.style.color = "green";
+                gameMessage.textContent = "Correct! You guessed the number!";
+            } else if (guessInput < secretNumber) {
+                gameMessage.style.color = "orange";
+                gameMessage.textContent = "Too low! Try again!";
+            } else {
+                gameMessage.style.color = "orange";
+                gameMessage.textContent = "Too high! Try again!";
             }
         }
 
@@ -167,28 +213,3 @@
         function agreeNo() {
             const noButton = document.getElementById("noButton");
             noButton.textContent = "YES";
-            noButton.setAttribute("onclick", "agreeYes()");
-            document.querySelector(".message").innerHTML = "You disagreed!"; // Optional message when clicking NO
-        }
-
-        // Function when YES is clicked on the Chakka page
-        function redirectChakka() {
-            window.location.href = "lol-chakka-chupa.html";  // Redirect to the Chakka page
-        }
-
-        // Function when NO is clicked on the Chakka page
-        function changeToYes() {
-            const noButton = document.getElementById("noChakkaButton");
-            noButton.textContent = "YES";
-            noButton.setAttribute("onclick", "redirectChakka()"); // Make it behave like YES
-        }
-
-        // Function to redirect to the calculator page
-        function redirectToCalculator() {
-            window.location.href = "calculator.html";  // Redirect to the calculator page
-        }
-    </script>
-
-</body>
-</html>
-
