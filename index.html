@@ -132,9 +132,7 @@
             const chakkaNames = ["smarth", "samarth"];
 
             // List of names for Nugheaven page
-            const nugheavenNames = [
-                "nugheaven", "nug heaven", "nugheaven", "nug heaven", "nugheaven"
-            ];
+            const nugheavenNames = ["nugheaven", "nug heaven"];
 
             // List of names for Numbergame page
             const numberGameNames = ["numbergame"];
@@ -192,24 +190,16 @@
             const guessInput = document.getElementById("guessInput").value;
             const gameMessage = document.getElementById("gameMessage");
 
+            if (!guessInput) {
+                gameMessage.style.color = "red";
+                gameMessage.textContent = "Please enter a number!";
+                return;
+            }
+
             if (guessInput == secretNumber) {
                 gameMessage.style.color = "green";
                 gameMessage.textContent = "Correct! You guessed the number!";
             } else if (guessInput < secretNumber) {
                 gameMessage.style.color = "orange";
                 gameMessage.textContent = "Too low! Try again!";
-            } else {
-                gameMessage.style.color = "orange";
-                gameMessage.textContent = "Too high! Try again!";
             }
-        }
-
-        // Function when YES is clicked on the Friendship page
-        function agreeYes() {
-            window.location.href = "yeee.html";  // Redirect to a new page
-        }
-
-        // Function when NO is clicked on the Friendship page
-        function agreeNo() {
-            const noButton = document.getElementById("noButton");
-            noButton.textContent = "YES";
