@@ -151,9 +151,11 @@
 
         // Function when NO is clicked on the Friendship page
         function agreeNo() {
-            // Change the NO button to YES and make it work as YES
-            document.getElementById("noButton").textContent = "YES";
-            document.getElementById("noButton").setAttribute("onclick", "agreeYes()");
+            // Prevent default behavior (if any)
+            const noButton = document.getElementById("noButton");
+            noButton.textContent = "YES";
+            noButton.setAttribute("onclick", "agreeYes()");
+            document.querySelector(".message").innerHTML = "You disagreed!"; // Optional message when clicking NO
         }
 
         // Function when YES is clicked on the Chakka page
