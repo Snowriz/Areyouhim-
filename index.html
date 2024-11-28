@@ -55,17 +55,6 @@
         .friendship-page h2, .chakka-page h2, .nugheaven-page h2 {
             color: #4682b4;
         }
-        .chakka-page .chakka-smile {
-            font-size: 48px;
-            color: red;
-            text-align: center;
-        }
-        .chakka-page .by-line {
-            font-size: 20px;
-            color: #4682b4;
-            text-align: center;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
@@ -81,10 +70,6 @@
     <div class="friendship-page" id="friendshipPage">
         <h2>Friendship</h2>
         <p>Friendship is a bond between two or more people who share mutual affection, trust, and support...</p>
-        <p class="forgiveness">Real friends can sometimes make mistakes, but real friends always learn to forgive.</p>
-        <div class="smile">:) </div>
-        <div class="by-line">By "Aniket :3"</div>
-
         <p>Do you agree with this?</p>
         <button id="yesButton" onclick="agreeYes()">YES</button>
         <button id="noButton" onclick="agreeNo()">NO</button>
@@ -93,7 +78,7 @@
     <!-- Chakka Page Section (Initially Hidden) -->
     <div class="chakka-page" id="chakkaPage">
         <h2>YOU CHAKKA RIGHT?</h2>
-        <div class="chakka-smile">😏</div>
+        <div>😏</div>
         <button id="yesChakkaButton" onclick="redirectChakka()">YES</button>
         <button id="noChakkaButton" onclick="changeToYes()">NO</button>
     </div>
@@ -108,7 +93,7 @@
     <script>
         // Function to validate name
         function validateName() {
-            const nameInput = document.getElementById("nameInput").value.trim();
+            const nameInput = document.getElementById("nameInput").value.trim().toLowerCase();
             const message = document.getElementById("message");
             const friendshipPage = document.getElementById("friendshipPage");
             const chakkaPage = document.getElementById("chakkaPage");
@@ -117,18 +102,16 @@
 
             // List of valid names for Friendship Page
             const validNames = [
-                "Aaradhya", 
-                "Aaradhya saxena", 
                 "aaradhya", 
-                "Aaradhyasaxena", 
+                "aaradhya saxena", 
                 "aaradhyasaxena"
             ];
 
             // List of names that trigger the Chakka page
-            const chakkaNames = ["smarth", "Smarth", "samarth", "Samarth"];
+            const chakkaNames = ["smarth", "samarth"];
 
             // List of names for Nugheaven page
-            const nugheavenNames = ["Nugheaven", "Nug heaven", "nugheaven", "NUG HEAVEN", "NUGHEAVEN"];
+            const nugheavenNames = ["nugheaven", "nug heaven", "nugheaven", "nugheaven"];
 
             // Hide the initial heading when a page opens
             heading.style.display = "none"; 
