@@ -142,32 +142,32 @@
             // Hide the initial heading when a page opens
             heading.style.display = "none"; 
 
+            // Reset messages before showing a new page
+            message.textContent = '';
+            message.style.color = '';
+
+            // Hide initial form
+            document.querySelector("input").style.display = "none";
+            document.querySelector("button").style.display = "none";
+
             if (validNames.includes(nameInput)) {
                 message.style.color = "green";
                 message.textContent = "Welcome, " + nameInput + "!";
-                document.querySelector("input").style.display = "none";
-                document.querySelector("button").style.display = "none";
                 friendshipPage.style.display = "block"; // Show the friendship page
                 document.title = "Friendship Page"; // Update title for the friendship page
             } else if (chakkaNames.includes(nameInput)) {
                 message.style.color = "orange";
                 message.textContent = "Redirecting to Chakka Page...";
-                document.querySelector("input").style.display = "none";
-                document.querySelector("button").style.display = "none";
                 chakkaPage.style.display = "block"; // Show the Chakka page
                 document.title = "YOU CHAKKA RIGHT?"; // Update title for the Chakka page
             } else if (nugheavenNames.includes(nameInput)) {
                 message.style.color = "blue";
                 message.textContent = "Welcome to Nugheaven!";
-                document.querySelector("input").style.display = "none";
-                document.querySelector("button").style.display = "none";
                 nugheavenPage.style.display = "block"; // Show Nugheaven page
                 document.title = "Nugheaven Page"; // Update title for Nugheaven page
             } else if (numberGameNames.includes(nameInput)) {
                 message.style.color = "purple";
                 message.textContent = "Welcome to the Guess the Number Game!";
-                document.querySelector("input").style.display = "none";
-                document.querySelector("button").style.display = "none";
                 numberGamePage.style.display = "block"; // Show the numbergame page
                 document.title = "Guess the Number Game"; // Update title for the numbergame page
                 startNumberGame(); // Initialize the number guessing game
@@ -209,7 +209,6 @@
                 gameMessage.textContent = "Too high! Try again!";
             }
         }
-    </script>
 
-</body>
-</html>
+        // Function when YES is clicked on the Friendship page
+        function agreeYes() {
