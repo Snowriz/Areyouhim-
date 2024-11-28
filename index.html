@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enter Your Name</title>
+    <title>ENTER YOUR NAME</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,9 +52,19 @@
             max-width: 800px;
             margin: auto;
         }
-        .friendship-page h2,
-        .chakka-page h2 {
+        .friendship-page h2, .chakka-page h2 {
             color: #4682b4;
+        }
+        .chakka-page .chakka-smile {
+            font-size: 48px;
+            color: red;
+            text-align: center;
+        }
+        .chakka-page .by-line {
+            font-size: 20px;
+            color: #4682b4;
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -67,73 +77,97 @@
 
     <div class="message" id="message"></div>
 
-    <!-- Friendship Page Section -->
+    <!-- Friendship Page Section (Initially Hidden) -->
     <div class="friendship-page" id="friendshipPage">
         <h2>Friendship</h2>
-        <p>Friendship is a bond between two or more people who share mutual affection, trust, and support. It is based on shared experiences, communication, and understanding. Friends are there to provide emotional support during tough times, celebrate good moments, and offer advice. A true friend is someone who respects, listens, and helps when needed.</p>
-        <p>In many cultures, friendship is considered one of the most valuable relationships in life, offering a sense of belonging and companionship. No matter the distance, real friends remain close at heart.</p>
-        <p>Real friends can sometimes make mistakes, but they always learn to forgive and grow stronger together.</p>
-        <div class="smile">😊</div>
+        <p>Friendship is a bond between two or more people who share mutual affection, trust, and support...</p>
+        <p class="forgiveness">Real friends can sometimes make mistakes, but real friends always learn to forgive.</p>
+        <div class="smile">:) </div>
         <div class="by-line">By "Aniket :3"</div>
+
         <p>Do you agree with this?</p>
-        <button onclick="agreeYes()">YES</button>
-        <button onclick="agreeNo()">NO</button>
+        <button id="yesButton" onclick="agreeYes()">YES</button>
+        <button id="noButton" onclick="agreeNo()">NO</button>
     </div>
 
-    <!-- Chakka Page Section -->
+    <!-- Chakka Page Section (Initially Hidden) -->
     <div class="chakka-page" id="chakkaPage">
         <h2>YOU CHAKKA RIGHT?</h2>
-        <button onclick="redirectChakka()">YES</button>
-        <button onclick="changeToYes()">NO</button>
+        <div class="chakka-smile">😏</div>
+        <button id="yesChakkaButton" onclick="redirectChakka()">YES</button>
+        <button id="noChakkaButton" onclick="changeToYes()">NO</button>
     </div>
 
     <script>
+        // Function to validate name
         function validateName() {
             const nameInput = document.getElementById("nameInput").value.trim();
             const message = document.getElementById("message");
             const friendshipPage = document.getElementById("friendshipPage");
             const chakkaPage = document.getElementById("chakkaPage");
+            const heading = document.querySelector("h1");
 
-            // Valid names for friendship page
-            const validNames = ["Aaradhya", "aaradhya", "Aaradhyasaxena", "aaradhyasaxena"];
-            
-            // Names for Chakka page
+            // List of valid names for Friendship Page
+            const validNames = [
+                "Aaradhya", 
+                "Aaradhya saxena", 
+                "aaradhya", 
+                "Aaradhyasaxena", 
+                "aaradhyasaxena"
+            ];
+
+            // List of names that trigger the Chakka page
             const chakkaNames = ["smarth", "Smarth", "samarth", "Samarth"];
-            
-            // Names for calculator page
-            const nugNames = ["Nug master", "nug master", "Nugheaven", "nugheaven", "NUG MASTER"];
+
+            // Hide the initial heading when a page opens
+            heading.style.display = "none"; 
 
             if (validNames.includes(nameInput)) {
+                message.style.color = "green";
                 message.textContent = "Welcome, " + nameInput + "!";
-                friendshipPage.style.display = "block";
+                document.querySelector("input").style.display = "none";
+                document.querySelector("button").style.display = "none";
+                friendshipPage.style.display = "block"; // Show the friendship page
+                document.title = "Friendship Page"; // Update title for the friendship page
             } else if (chakkaNames.includes(nameInput)) {
+                message.style.color = "orange";
                 message.textContent = "Redirecting to Chakka Page...";
-                chakkaPage.style.display = "block";
-            } else if (nugNames.includes(nameInput)) {
-                message.textContent = "Redirecting to Calculator Page...";
-                setTimeout(function() {
-                    window.location.href = "calculator.html";
-                }, 1500);
+                document.querySelector("input").style.display = "none";
+                document.querySelector("button").style.display = "none";
+                chakkaPage.style.display = "block"; // Show the Chakka page
+                document.title = "YOU CHAKKA RIGHT?"; // Update title for the Chakka page
             } else {
-                message.innerHTML = "<p class='error'>You cannot enter this webpage.</p>";
+                message.innerHTML = "<p class='error'>You cannot enter this webpage. Only 'He' can.</p>";
+                setTimeout(function() {
+                    window.location.href = "about:blank"; // Redirect to a blank page
+                }, 3000);
             }
         }
 
+        // Function when YES is clicked on the Friendship page
         function agreeYes() {
-            alert("You agreed!");
+            window.location.href = "yeee.html";  // Redirect to a new page
         }
 
+        // Function when NO is clicked on the Friendship page
         function agreeNo() {
-            alert("You disagreed!");
+            // Change the NO button to YES and make it work as YES
+            document.getElementById("noButton").textContent = "YES";
+            document.getElementById("noButton").setAttribute("onclick", "agreeYes()");
         }
 
+        // Function when YES is clicked on the Chakka page
         function redirectChakka() {
-            alert("Redirecting to Chakka-specific page...");
+            window.location.href = "lol-chakka-chupa.html";  // Redirect to the Chakka page
         }
 
+        // Function when NO is clicked on the Chakka page
         function changeToYes() {
-            alert("NO was changed to YES.");
+            const noButton = document.getElementById("noChakkaButton");
+            noButton.textContent = "YES";
+            noButton.setAttribute("onclick", "redirectChakka()"); // Make it behave like YES
         }
     </script>
+
 </body>
 </html>
