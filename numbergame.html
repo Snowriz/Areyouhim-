@@ -1,0 +1,125 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #ff6347;
+        }
+
+        .game-container {
+            background-color: #fff8dc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            margin: auto;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #4682b4;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4682b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #5f9ea0;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ff6347;
+        }
+
+        .error {
+            font-size: 20px;
+            color: red;
+            font-weight: bold;
+        }
+
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guess the Number Game</h1>
+    <div class="game-container">
+        <p>Guess a number between 1 and 100</p>
+        <input type="number" id="guessInput" min="1" max="100" placeholder="Enter your guess">
+        <button onclick="checkGuess()">Submit Guess</button>
+
+        <div class="message" id="message"></div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        let randomNumber = Math.floor(Math.random() * 100) + 1; // Generate a random number between 1 and 100
+        let attempts = 0;
+
+        function checkGuess() {
+            let guess = document.getElementById("guessInput").value;
+            let message = document.getElementById("message");
+            let result = document.getElementById("result");
+
+            if (guess < 1 || guess > 100) {
+                message.innerHTML = "Please enter a number between 1 and 100.";
+                message.classList.add("error");
+                return;
+            }
+
+            attempts++;
+
+            if (guess < randomNumber) {
+                message.innerHTML = "Too low! Try again.";
+                message.classList.remove("error");
+            } else if (guess > randomNumber) {
+                message.innerHTML = "Too high! Try again.";
+                message.classList.remove("error");
+            } else {
+                message.innerHTML = "Congratulations! You guessed the number!";
+                message.classList.remove("error");
+                result.innerHTML = `It took you ${attempts} attempts.`;
+                resetGame();
+            }
+        }
+
+        function resetGame() {
+            setTimeout(function() {
+                randomNumber = Math.floor(Math.random() * 100) + 1;
+                attempts = 0;
+                document.getElementById("guessInput").value = "";
+                document.getElementById("message").innerHTML = "";
+                document.getElementById("result").innerHTML = "";
+            }, 3000); // Reset after 3 seconds
+        }
+    </script>
+
+</body>
+</html>
