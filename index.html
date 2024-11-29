@@ -37,11 +37,6 @@
             font-size: 18px;
             color: #ff6347;
         }
-        .error {
-            font-size: 20px;
-            color: red;
-            font-weight: bold;
-        }
         .friendship-page, .chakka-page, .nugheaven-page {
             display: none;
             text-align: left;
@@ -55,7 +50,6 @@
         .friendship-page h2, .chakka-page h2, .nugheaven-page h2 {
             color: #4682b4;
         }
-        /* "Made by Aniket" at bottom left */
         .made-by {
             position: fixed;
             bottom: 10px;
@@ -67,14 +61,12 @@
 </head>
 <body>
 
-    <!-- Name Validation Section -->
     <h1>ENTER YOUR NAME</h1>
     <input type="text" id="nameInput" placeholder="Enter your name">
     <button onclick="validateName()">Submit</button>
 
     <div class="message" id="message"></div>
 
-    <!-- Friendship Page Section (Initially Hidden) -->
     <div class="friendship-page" id="friendshipPage">
         <h2>Friendship</h2>
         <p>Friendship is a bond between two or more people who share mutual affection, trust, and support.</p>
@@ -83,7 +75,6 @@
         <button id="noButton" onclick="changeToYes()">NO</button>
     </div>
 
-    <!-- Chakka Page Section (Initially Hidden) -->
     <div class="chakka-page" id="chakkaPage">
         <h2>YOU CHAKKA RIGHT?</h2>
         <div>😏</div>
@@ -91,18 +82,15 @@
         <button id="noChakkaButton" onclick="changeToYesChakka()">NO</button>
     </div>
 
-    <!-- Nugheaven Page Section (Initially Hidden) -->
     <div class="nugheaven-page" id="nugheavenPage">
         <h2>Welcome to Nugheaven!</h2>
         <p>This is a special page just for you, Nugheaven!</p>
         <button onclick="redirectToCalculator()">Go to Calculator</button>
     </div>
 
-    <!-- Footer with Made by Aniket text -->
     <div class="made-by">Made by Aniket</div>
 
     <script>
-        // Function to validate name
         function validateName() {
             const nameInput = document.getElementById("nameInput").value.trim().toLowerCase();
             const message = document.getElementById("message");
@@ -111,86 +99,66 @@
             const nugheavenPage = document.getElementById("nugheavenPage");
             const heading = document.querySelector("h1");
 
-            // List of valid names for Friendship Page
             const validNames = ["aaradhya", "aaradhya saxena", "aaradhyasaxena"];
-
-            // List of names that trigger the Chakka page
             const chakkaNames = ["smarth", "samarth"];
-
-            // List of names for Nugheaven page
             const nugheavenNames = ["nugheaven", "nug heaven"];
-
-            // List of names for Numbergame page
             const numberGameNames = ["numbergame"];
 
-            // Hide the initial heading when a page opens
-            heading.style.display = "none"; 
-
-            // Hide input and button when switching pages
+            heading.style.display = "none";
             document.querySelector("input").style.display = "none";
             document.querySelector("button").style.display = "none";
-
-            // Clear the message and prepare for new page display
             message.textContent = '';
             message.style.color = '';
 
             if (validNames.includes(nameInput)) {
                 message.style.color = "green";
                 message.textContent = "Welcome, " + nameInput + "!";
-                friendshipPage.style.display = "block"; // Show the friendship page
-                document.title = "Friendship Page"; // Update title for the friendship page
+                friendshipPage.style.display = "block";
+                document.title = "Friendship Page";
             } else if (chakkaNames.includes(nameInput)) {
                 message.style.color = "orange";
                 message.textContent = "Redirecting to Chakka Page...";
-                chakkaPage.style.display = "block"; // Show the Chakka page
-                document.title = "YOU CHAKKA RIGHT?"; // Update title for the Chakka page
+                chakkaPage.style.display = "block";
+                document.title = "YOU CHAKKA RIGHT?";
             } else if (nugheavenNames.includes(nameInput)) {
                 message.style.color = "blue";
                 message.textContent = "Welcome to Nugheaven!";
-                nugheavenPage.style.display = "block"; // Show Nugheaven page
-                document.title = "Nugheaven Page"; // Update title for Nugheaven page
+                nugheavenPage.style.display = "block";
+                document.title = "Nugheaven Page";
             } else if (numberGameNames.includes(nameInput)) {
                 message.style.color = "purple";
-                message.textContent = "Welcome to the Guess the Number Game!";
-                // Redirect to the numbergame.html page
-                window.location.href = "numbergame.html"; // Open the number game page
+                message.textContent = "Redirecting to the Number Game...";
+                window.location.href = "numbergame.html";
             } else {
                 message.innerHTML = "<p class='error'>You cannot enter this webpage. Only 'He' can.</p>";
                 setTimeout(function() {
-                    window.location.href = "about:blank"; // Redirects to a blank page
+                    window.location.href = "about:blank";
                 }, 3000);
             }
         }
 
-        // Function when YES is clicked on the Friendship page
         function agreeYes() {
-            window.location.href = "lol-chakka-chupa.html";  // Redirect to a new page
+            window.location.href = "lol-chakka-chupa.html";
         }
 
-        // Function when NO is clicked on the Friendship page, changing to YES
         function changeToYes() {
             const noButton = document.getElementById("noButton");
             noButton.textContent = "YES";
             noButton.style.backgroundColor = "green";
-            // Now the NO button behaves like YES
             noButton.setAttribute("onclick", "agreeYes()");
         }
 
-        // Function when YES is clicked on the Chakka page
         function redirectChakka() {
-            window.location.href = "lol-chakka-chupa.html"; // Redirect to the lol-chakka-chupa.html page
+            window.location.href = "lol-chakka-chupa.html";
         }
 
-        // Function when NO is clicked on the Chakka page, changing to YES
         function changeToYesChakka() {
             const noButton = document.getElementById("noChakkaButton");
             noButton.textContent = "YES";
             noButton.style.backgroundColor = "green";
-            // Now the NO button behaves like YES
             noButton.setAttribute("onclick", "redirectChakka()");
         }
 
-        // Redirect to Nugheaven calculator page
         function redirectToCalculator() {
             window.location.href = "calculator.html";
         }
