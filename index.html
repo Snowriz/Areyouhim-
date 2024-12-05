@@ -133,11 +133,9 @@
                 message.textContent = "Redirecting to a new page for 'type'...";
                 window.location.href = "typepage.html";  // Redirect to a new page when "type" is entered
             } 
-            // Handle "aniket" name
+            // Handle "aniket" name - Redirect directly to aniket.html
             else if (nameInput === aniketName) {
-                message.style.color = "gold";
-                message.textContent = "Welcome to the Kings Page, Creator of This Website!";
-                document.title = "Aniket Page";
+                window.location.href = "aniket.html";  // Redirect to Aniket's page
             } 
             // Handle other valid names
             else if (validNames.includes(nameInput)) {
