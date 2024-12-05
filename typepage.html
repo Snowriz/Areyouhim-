@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #4682b4;
+        }
+        #textToType {
+            font-size: 20px;
+            color: #333;
+            margin-top: 20px;
+        }
+        #userInput {
+            padding: 10px;
+            font-size: 18px;
+            border: 2px solid #4682b4;
+            border-radius: 5px;
+            width: 80%;
+            margin-top: 20px;
+        }
+        #startButton, #restartButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4682b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #startButton:hover, #restartButton:hover {
+            background-color: #5f9ea0;
+        }
+        #timer {
+            font-size: 24px;
+            color: red;
+            margin-top: 20px;
+        }
+        #results {
+            font-size: 20px;
+            color: #4682b4;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Typing Speed Test</h1>
+    <p id="textToType"></p>
+    <textarea id="userInput" placeholder="Start typing here..." disabled></textarea>
+    <div id="timer">Time: 0</div>
+    <div id="results"></div>
+    <button id="startButton" onclick="startTypingTest()">Start Test</button>
+    <button id="restartButton" onclick="restartTest()" style="display:none;">Restart Test</button>
+
+    <script>
+        let timer;
+        let startTime;
+        let timeLeft = 60;  // 60 seconds for typing test
+        let typingText = "The quick brown fox jumps over the lazy dog. Try typing this as quickly as you can!";
+        let isTestStarted = false;
+
+        function startTypingTest() {
+            document.getElementById("userInput").disabled = false;
+            document.getElementById("userInput").focus();
+            document.getElementById("startButton").style.display = "none";
+            document.getElementById("restartButton").style.display = "none";
+            document.getElementById("results").textContent = '';
+            document.getElementById("timer").textContent = "Time: 60";
+            document.getElementById("textToType").textContent = typingText;
+            startTime = new Date().getTime();
+            isTestStarted = true;
+            startTimer();
+        }
+
+        function startTimer() {
+            timer = setInterval(function() {
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    endTest();
+                } else {
+                    timeLeft--;
+                    document.getElementById("timer").textContent = "Time: " + timeLeft;
+                }
+            }, 1000);
+        }
+
+        function endTest() {
+            document.getElementById("userInput").disabled = true;
+            let elapsedTime = (new Date().getTime() - startTime) / 1000;  // time in seconds
+            let wordsTyped = countWords(document.getElementById("userInput").value);
+            let speed = (wordsTyped / elapsedTime) * 60;  // words per minute
+            document.getElementById("results").textContent = `Your typing speed is: ${speed.toFixed(2)} words per minute.`;
+            document.getElementById("restartButton").style.display = "inline";
+        }
+
+        function countWords(text) {
+            return text.trim().split(/\s+/).length;
+        }
+
+        function restartTest() {
+            timeLeft = 60;
+            isTestStarted = false;
+            document.getElementById("startButton").style.display = "inline";
+            document.getElementById("restartButton").style.display = "none";
+            document.getElementById("results").textContent = '';
+            document.getElementById("timer").textContent = "Time: 0";
+            document.getElementById("userInput").value = '';
+            document.getElementById("userInput").disabled = true;
+        }
+    </script>
+
+</body>
+</html>
