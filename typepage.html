@@ -68,6 +68,12 @@
             margin-top: 20px;
             color: #333333;
         }
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: red;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -79,10 +85,13 @@
             <p>Type the following text as fast as you can in the box below. Once you finish, click "Submit" to check your accuracy.</p>
         </div>
         
+        <!-- Target text will be displayed with green and red as feedback -->
         <div class="target-text" id="targetText">The quick brown fox jumps over the lazy dog.</div>
 
         <textarea class="typing-area" id="typingArea" placeholder="Start typing here..." oninput="checkTyping()"></textarea>
 
+        <div class="timer" id="timer">Time Left: 30 seconds</div>
+        
         <button onclick="submitTyping()">Submit</button>
         
         <div class="message" id="message"></div>
@@ -90,13 +99,47 @@
 
     <script>
         const targetText = "The quick brown fox jumps over the lazy dog.";  // The correct text to type
+        let timeLeft = 30;  // Time limit in seconds
+        let timerInterval;
+
+        // Start the timer
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    document.getElementById("timer").textContent = "Time Left: " + timeLeft + " seconds";
+                } else {
+                    clearInterval(timerInterval);
+                    document.getElementById("timer").textContent = "Oops, you're out of time! Please try again.";
+                    document.getElementById("message").textContent = "";
+                    document.getElementById("message").className = "message incorrect";
+                    document.getElementById("typingArea").disabled = true;  // Disable typing after time runs out
+                }
+            }, 1000);  // Update every 1 second
+        }
 
         // Check typing progress and display live feedback
         function checkTyping() {
             const typingArea = document.getElementById("typingArea");
             const typedText = typingArea.value;
             const message = document.getElementById("message");
+            const targetWords = targetText.split(" ");  // Split the target text into words
+            const typedWords = typedText.split(" ");  // Split the typed text into words
 
+            // Loop through words and check correctness
+            let outputText = "";
+            for (let i = 0; i < targetWords.length; i++) {
+                if (typedWords[i] === targetWords[i]) {
+                    outputText += `<span style="color: green">${targetWords[i]}</span> `;
+                } else {
+                    outputText += `<span style="color: red">${targetWords[i]}</span> `;
+                }
+            }
+
+            // Update the target text with feedback
+            document.getElementById("targetText").innerHTML = outputText;
+
+            // Provide feedback if the text is fully correct
             if (typedText === targetText) {
                 message.textContent = "Correct!";
                 message.className = "message correct";
@@ -118,7 +161,14 @@
                 message.textContent = "Oops! Your typing is incorrect. Try again!";
                 message.className = "message incorrect";
             }
+
+            clearInterval(timerInterval);  // Stop the timer when submitting
+            document.getElementById("typingArea").disabled = true;  // Disable typing after submission
         }
+
+        // Start the timer when the page loads
+        window.onload = startTimer;
+
     </script>
 
 </body>
