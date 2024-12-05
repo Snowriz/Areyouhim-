@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniket Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 50px;
+        }
+        .aniket-page {
+            background-color: #fff8dc;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .question {
+            font-size: 20px;
+            color: #4682b4;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4682b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #5f9ea0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="aniket-page">
+        <h2>YOU HAVE ENTERED THE KING'S PAGE, CREATOR OF THIS WEBSITE</h2>
+        <p>If you want your PC safe, answer the following question:</p>
+        <div class="question">
+            <strong>ANIKET IS BETTER THAN YOU</strong>
+        </div>
+        <button onclick="answerYes()">YES</button>
+        <button onclick="answerNo()">NO</button>
+    </div>
+
+    <script>
+        function answerYes() {
+            const aniketPage = document.querySelector(".aniket-page");
+            aniketPage.innerHTML = "<p>Thank you for agreeing! Your PC is now safe!</p>";
+            aniketPage.style.backgroundColor = "#d3ffd3";  // Change background to indicate success
+        }
+
+        function answerNo() {
+            const aniketPage = document.querySelector(".aniket-page");
+            aniketPage.innerHTML = "<p>Uh-oh! Your PC is not safe now! Please try again.</p>";
+            aniketPage.style.backgroundColor = "#ffcccb";  // Change background to indicate warning
+        }
+    </script>
+
+</body>
+</html>
