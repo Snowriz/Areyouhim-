@@ -119,6 +119,7 @@
             const nugheavenNames = ["nugheaven", "nug heaven"];
             const numberGameNames = ["numbergame"];
             const validNamesKanchan = ["kanchan", "kanchan singh", "kanchan", "kanchansingh", "Kanchan", "Kanchan Singh"];
+            const aniketName = "aniket";  // Added "aniket" as a constant
 
             heading.style.display = "none";
             document.querySelector("input").style.display = "none";
@@ -131,6 +132,12 @@
                 message.style.color = "blue";
                 message.textContent = "Redirecting to a new page for 'type'...";
                 window.location.href = "typepage.html";  // Redirect to a new page when "type" is entered
+            } 
+            // Handle "aniket" name
+            else if (nameInput === aniketName) {
+                message.style.color = "gold";
+                message.textContent = "Welcome to the Kings Page, Creator of This Website!";
+                document.title = "Aniket Page";
             } 
             // Handle other valid names
             else if (validNames.includes(nameInput)) {
