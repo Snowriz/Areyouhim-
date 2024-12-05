@@ -3,31 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Typing Test</title>
+    <title>Typing Practice</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f8ff;
             text-align: center;
-            padding: 20px;
+            padding: 50px;
         }
         h1 {
-            color: #4682b4;
+            color: #ff6347;
         }
-        #textToType {
-            font-size: 20px;
-            color: #333;
-            margin-top: 20px;
+        .typing-container {
+            width: 80%;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        #userInput {
-            padding: 10px;
+        .typing-area {
+            width: 100%;
+            height: 150px;
             font-size: 18px;
             border: 2px solid #4682b4;
+            padding: 10px;
             border-radius: 5px;
-            width: 80%;
+            background-color: #f8f8f8;
+            color: #333333;
             margin-top: 20px;
+            resize: none;
         }
-        #startButton, #restartButton {
+        button {
             padding: 10px 20px;
             font-size: 16px;
             background-color: #4682b4;
@@ -36,85 +43,90 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        #startButton:hover, #restartButton:hover {
+        button:hover {
             background-color: #5f9ea0;
         }
-        #timer {
-            font-size: 24px;
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ff6347;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
             color: red;
+        }
+        .target-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4682b4;
             margin-top: 20px;
         }
-        #results {
-            font-size: 20px;
-            color: #4682b4;
-            margin-top: 30px;
+        .instructions {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #333333;
+        }
+        .made-by {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 14px;
+            color: #808080;
         }
     </style>
 </head>
 <body>
 
-    <h1>Typing Speed Test</h1>
-    <p id="textToType"></p>
-    <textarea id="userInput" placeholder="Start typing here..." disabled></textarea>
-    <div id="timer">Time: 0</div>
-    <div id="results"></div>
-    <button id="startButton" onclick="startTypingTest()">Start Test</button>
-    <button id="restartButton" onclick="restartTest()" style="display:none;">Restart Test</button>
+    <h1>Typing Speed Practice</h1>
+
+    <div class="typing-container">
+        <div class="instructions">
+            <p>Type the following text as fast as you can in the box below. Once you finish, click "Submit" to check your accuracy.</p>
+        </div>
+        
+        <div class="target-text" id="targetText">The quick brown fox jumps over the lazy dog.</div>
+
+        <textarea class="typing-area" id="typingArea" placeholder="Start typing here..." oninput="checkTyping()"></textarea>
+
+        <button onclick="submitTyping()">Submit</button>
+        
+        <div class="message" id="message"></div>
+    </div>
+
+    <div class="made-by">Made by Aniket</div>
 
     <script>
-        let timer;
-        let startTime;
-        let timeLeft = 60;  // 60 seconds for typing test
-        let typingText = "The quick brown fox jumps over the lazy dog. Try typing this as quickly as you can!";
-        let isTestStarted = false;
+        const targetText = "The quick brown fox jumps over the lazy dog.";  // The correct text to type
 
-        function startTypingTest() {
-            document.getElementById("userInput").disabled = false;
-            document.getElementById("userInput").focus();
-            document.getElementById("startButton").style.display = "none";
-            document.getElementById("restartButton").style.display = "none";
-            document.getElementById("results").textContent = '';
-            document.getElementById("timer").textContent = "Time: 60";
-            document.getElementById("textToType").textContent = typingText;
-            startTime = new Date().getTime();
-            isTestStarted = true;
-            startTimer();
+        // Check typing progress and display live feedback
+        function checkTyping() {
+            const typingArea = document.getElementById("typingArea");
+            const typedText = typingArea.value;
+            const message = document.getElementById("message");
+
+            if (typedText === targetText) {
+                message.textContent = "Correct!";
+                message.className = "message correct";
+            } else {
+                message.textContent = "";
+            }
         }
 
-        function startTimer() {
-            timer = setInterval(function() {
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    endTest();
-                } else {
-                    timeLeft--;
-                    document.getElementById("timer").textContent = "Time: " + timeLeft;
-                }
-            }, 1000);
-        }
+        // Submit the typing input and compare with the target text
+        function submitTyping() {
+            const typingArea = document.getElementById("typingArea");
+            const typedText = typingArea.value.trim();
+            const message = document.getElementById("message");
 
-        function endTest() {
-            document.getElementById("userInput").disabled = true;
-            let elapsedTime = (new Date().getTime() - startTime) / 1000;  // time in seconds
-            let wordsTyped = countWords(document.getElementById("userInput").value);
-            let speed = (wordsTyped / elapsedTime) * 60;  // words per minute
-            document.getElementById("results").textContent = `Your typing speed is: ${speed.toFixed(2)} words per minute.`;
-            document.getElementById("restartButton").style.display = "inline";
-        }
-
-        function countWords(text) {
-            return text.trim().split(/\s+/).length;
-        }
-
-        function restartTest() {
-            timeLeft = 60;
-            isTestStarted = false;
-            document.getElementById("startButton").style.display = "inline";
-            document.getElementById("restartButton").style.display = "none";
-            document.getElementById("results").textContent = '';
-            document.getElementById("timer").textContent = "Time: 0";
-            document.getElementById("userInput").value = '';
-            document.getElementById("userInput").disabled = true;
+            if (typedText === targetText) {
+                message.textContent = "Well done! You typed the text correctly.";
+                message.className = "message correct";
+            } else {
+                message.textContent = "Oops! Your typing is incorrect. Try again!";
+                message.className = "message incorrect";
+            }
         }
     </script>
 
