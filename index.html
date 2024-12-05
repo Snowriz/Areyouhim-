@@ -112,13 +112,12 @@
             const kanchanPage = document.getElementById("kanchanPage");
             const heading = document.querySelector("h1");
 
-            // Valid names arrays
+            // Constants for special names
+            const typeName = "type";  // Added "type" as a constant
             const validNames = ["aaradhya", "aaradhya saxena", "aaradhyasaxena"];
             const chakkaNames = ["smarth", "samarth"];
             const nugheavenNames = ["nugheaven", "nug heaven"];
             const numberGameNames = ["numbergame"];
-
-            // New valid names for Kanchan
             const validNamesKanchan = ["kanchan", "kanchan singh", "kanchan", "kanchansingh", "Kanchan", "Kanchan Singh"];
 
             heading.style.display = "none";
@@ -127,8 +126,14 @@
             message.textContent = '';
             message.style.color = '';
 
-            // Handle valid names for each page
-            if (validNames.includes(nameInput)) {
+            // Check for "type" and handle
+            if (nameInput === typeName) {
+                message.style.color = "blue";
+                message.textContent = "Redirecting to a new page for 'type'...";
+                window.location.href = "typepage.html";  // Redirect to a new page when "type" is entered
+            } 
+            // Handle other valid names
+            else if (validNames.includes(nameInput)) {
                 message.style.color = "green";
                 message.textContent = "Welcome, " + nameInput + "!";
                 friendshipPage.style.display = "block";
