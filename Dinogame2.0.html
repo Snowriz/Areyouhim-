@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OP Dino Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #f7f7f7;
+        }
+        #gameCanvas {
+            display: block;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="600" height="200"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let dino = { x: 50, y: 150, width: 20, height: 20, gravity: 0.5, jump: -10, velocityY: 0, isJumping: false };
+        let obstacles = [];
+        let score = 0;
+        let gameOver = false;
+        let powerUps = [];
+        let isInvincible = false;
+        let hasBeamPower = false;
+        let beams = []; // Array to store active beams
+
+        function drawDino() {
+            ctx.fillStyle = isInvincible ? 'yellow' : 'green';
+            ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+        }
+
+        function drawObstacles() {
+            ctx.fillStyle = 'red';
+            obstacles.forEach(obstacle => {
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            });
+        }
+
+        function drawPowerUps() {
+            powerUps.forEach(powerUp => {
+                ctx.fillStyle = powerUp.type === 'invincibility' ? 'yellow' : 'blue';
+                ctx.beginPath();
+                ctx.arc(powerUp.x, powerUp.y, 10, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function drawBeams() {
+            beams.forEach(beam => {
+                ctx.fillStyle = 'cyan';
+                ctx.fillRect(beam.x, beam.y, beam.width, beam.height);
+            });
+        }
+
+        function updateObstacles() {
+            if (Math.random() < 0.02) {
+                obstacles.push({ x: canvas.width, y: 160, width: 20, height: 20 });
+            }
+            obstacles.forEach(obstacle => {
+                obstacle.x -= 5;
+            });
+            obstacles = obstacles.filter(obstacle => obstacle.x + obstacle.width > 0);
+        }
+
+        function updatePowerUps() {
+            if (Math.random() < 0.01) {
+                const randomType = Math.random() < 0.5 ? 'invincibility' : 'beam';
+                powerUps.push({ x: canvas.width, y: Math.random() * 100 + 50, type: randomType });
+            }
+
+            powerUps.forEach(powerUp => {
+                powerUp.x -= 3;
+            });
+
+            powerUps = powerUps.filter(powerUp => powerUp.x + 10 > 0);
+        }
+
+        function updateBeams() {
+            beams.forEach((beam, beamIndex) => {
+                beam.x += 10; // Move beam to the right
+                obstacles.forEach((obstacle, obstacleIndex) => {
+                    if (
+                        beam.x < obstacle.x + obstacle.width &&
+                        beam.x + beam.width > obstacle.x &&
+                        beam.y < obstacle.y + obstacle.height &&
+                        beam.y + beam.height > obstacle.y
+                    ) {
+                        obstacles.splice(obstacleIndex, 1); // Destroy obstacle
+                        beams.splice(beamIndex, 1); // Destroy beam
+                    }
+                });
+            });
+            beams = beams.filter(beam => beam.x < canvas.width); // Remove beams that leave the canvas
+        }
+
+        function checkCollision() {
+            obstacles.forEach(obstacle => {
+                if (dino.x < obstacle.x + obstacle.width &&
+                    dino.x + dino.width > obstacle.x &&
+                    dino.y < obstacle.y + obstacle.height &&
+                    dino.y + dino.height > obstacle.y && !isInvincible) {
+                    gameOver = true;
+                }
+            });
+
+            powerUps.forEach((powerUp, index) => {
+                if (dino.x < powerUp.x + 10 && dino.x + dino.width > powerUp.x &&
+                    dino.y < powerUp.y + 10 && dino.y + dino.height > powerUp.y) {
+                    if (powerUp.type === 'invincibility') {
+                        activateInvincibility();
+                    } else if (powerUp.type === 'beam') {
+                        activateBeamPowerUp();
+                    }
+                    powerUps.splice(index, 1);
+                }
+            });
+        }
+
+        function jump() {
+            if (!dino.isJumping) {
+                dino.isJumping = true;
+                dino.velocityY = dino.jump;
+            }
+        }
+
+        function activateInvincibility() {
+            isInvincible = true;
+            setTimeout(() => {
+                isInvincible = false;
+            }, 5000);  // 5 seconds of invincibility
+        }
+
+        function activateBeamPowerUp() {
+            hasBeamPower = true;
+            setTimeout(() => {
+                hasBeamPower = false;
+            }, 5000);  // 5 seconds of beam power-up
+        }
+
+        function fireBeam() {
+            if (!hasBeamPower) return;
+
+            // Add a new beam to the array
+            beams.push({ x: dino.x + dino.width, y: dino.y + dino.height / 2, width: 40, height: 5 });
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                jump();
+            }
+            if (event.code === 'Digit1') {
+                fireBeam();
+            }
+        });
+
+        function gameLoop() {
+            if (gameOver) {
+                ctx.fillStyle = 'black';
+                ctx.font = '30px Arial';
+                ctx.fillText('Game Over', canvas.width / 2 - 70, canvas.height / 2);
+                return;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawDino();
+            drawObstacles();
+            drawPowerUps();
+            drawBeams();
+            updateObstacles();
+            updatePowerUps();
+            updateBeams();
+            checkCollision();
+
+            if (dino.isJumping) {
+                dino.velocityY += dino.gravity;
+                dino.y += dino.velocityY;
+
+                if (dino.y >= 150) {
+                    dino.y = 150;
+                    dino.isJumping = false;
+                }
+            }
+
+            score++;
+            ctx.fillStyle = 'black';
+            ctx.fillText('Score: ' + score, 10, 20);
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+    </script>
+</body>
+</html>
+
