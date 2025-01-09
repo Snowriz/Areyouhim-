@@ -120,12 +120,21 @@
             const numberGameNames = ["numbergame"];
             const validNamesKanchan = ["kanchan", "kanchan singh", "kanchan", "kanchansingh", "Kanchan", "Kanchan Singh"];
             const aniketName = "aniket";  // Added "aniket" as a constant
+             const formName = "form"; // Added constant for 'form'
+
 
             heading.style.display = "none";
             document.querySelector("input").style.display = "none";
             document.querySelector("button").style.display = "none";
             message.textContent = '';
             message.style.color = '';
+            
+            // Check for 'form' and handle redirection
+        if (nameInput === formName) {
+            message.style.color = "blue";
+            message.textContent = "Redirecting to form.html...";
+            window.location.href = "form.html";  // Redirect to form.html
+        } 
 
             // Check for "type" and handle
             if (nameInput === typeName) {
