@@ -130,12 +130,13 @@
             message.textContent = '';
             message.style.color = '';
 
-            // Check for 'dinogame' and handle redirection
-            if (nameInput === dinogame) {
-                message.style.colour = "blue";
-                message.textContent = "Redirecting to Dinogame2.0.html...";
-                window.location.href = "Dinogame2.0.html"; // Redirect to Dinogame2.0.html
-        }    
+               if (nameInput === dinogame) {
+        console.log("Redirecting to Dinogame2.0.html...");
+        message.style.color = "blue";
+        message.textContent = "Redirecting to Dinogame2.0.html...";
+        window.location.href = "Dinogame2.0.html"; // Redirect to Dinogame2.0.html
+    }
+
             
             // Check for 'form' and handle redirection
         if (nameInput === formName) {
