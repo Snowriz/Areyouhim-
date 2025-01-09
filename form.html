@@ -3,72 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enter Your Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-        }
-        input[type="text"], input[type="email"], input[type="date"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 16px;
-            border: 2px solid #4682b4;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #4682b4;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #5f9ea0;
-        }
-    </style>
+    <title>Submit Your Details</title>
 </head>
 <body>
-
     <h1>Enter Your Details</h1>
+    <form action="https://formsubmit.co/hero34548@gmail.com" method="POST">
+        <!-- Hidden input to customize redirect URL -->
+        <input type="hidden" name="_next" value="thankyou.html">
+        <!-- Hidden input to prevent spam -->
+        <input type="hidden" name="_captcha" value="false">
 
-    <!-- Form -->
-    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" name="name" required>
+        <!-- Collect Name -->
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="Name" required><br><br>
 
-        <label for="age">Age:</label>
-        <input type="text" id="age" name="age" required>
+        <!-- Collect Age -->
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="Age" required><br><br>
 
-        <label for="dob">Date of Birth:</label>
-        <input type="date" id="dob" name="dob" required>
+        <!-- Collect Date of Birth -->
+        <label for="dob">Date of Birth:</label><br>
+        <input type="date" id="dob" name="Date of Birth" required><br><br>
 
-        <label for="hobby">Hobby:</label>
-        <input type="text" id="hobby" name="hobby" required>
+        <!-- Collect Hobby -->
+        <label for="hobby">Hobby:</label><br>
+        <input type="text" id="hobby" name="Hobby" required><br><br>
 
-        <label for="email">Your Email:</label>
-        <input type="email" id="email" name="_replyto" required>
+        <!-- Collect Gyat Size -->
+        <label for="gyat">Gyat Size:</label><br>
+        <input type="text" id="gyat" name="Gyat Size" required><br><br>
 
+        <!-- Collect User's Email -->
+        <label for="email">Your Email (to send results):</label><br>
+        <input type="email" id="email" name="User Email" required><br><br>
+
+        <!-- Collect Reason -->
+        <label for="reason">Reason (why you need the results):</label><br>
+        <textarea id="reason" name="Reason" rows="4" cols="50" required></textarea><br><br>
+
+        <!-- Submit Button -->
         <button type="submit">Submit</button>
     </form>
-
-    <p id="successMessage" style="text-align:center; color: green; display: none;">Form successfully submitted!</p>
-
-    <script>
-        // Show success message when form is successfully submitted
-        const form = document.querySelector('form');
-        form.addEventListener('submit', function() {
-            document.getElementById('successMessage').style.display = 'block';
-        });
-    </script>
-
 </body>
 </html>
-
-
