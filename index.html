@@ -121,6 +121,7 @@
             const validNamesKanchan = ["kanchan", "kanchan singh", "kanchan", "kanchansingh", "Kanchan", "Kanchan Singh"];
             const aniketName = "aniket";  // Added "aniket" as a constant
              const formName = "form"; // Added constant for 'form'
+            const dinogame = "dinogame"; // Added constant for 'dinogame'
 
 
             heading.style.display = "none";
@@ -128,6 +129,13 @@
             document.querySelector("button").style.display = "none";
             message.textContent = '';
             message.style.color = '';
+
+            // Check for 'dinogame' and handle redirection
+            if (nameInput === forName) {
+                message.style.colour = "blue";
+                message.textContent = "Redirecting to Dinogame2.0.html...";
+                window.location.href = "Dinogame2.0.html"; // Redirect to Dinogame2.0.html
+            }
             
             // Check for 'form' and handle redirection
         if (nameInput === formName) {
